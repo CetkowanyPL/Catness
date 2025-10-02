@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Catness Pręga 25.2 — Sagam Edition SP1</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background-color: #0e3d77;
+      color: #fff;
+      transition: background 0.5s ease;
+    }
+    .logo {
+      display: block;
+      margin: 40px auto 10px;
+      width: 140px;
+      height: 140px;
+    }
+    #taskbar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 50px;
+      background-color: #1459a1;
+      display: flex;
+      align-items: center;
+      padding: 5px 10px;
+      z-index: 1000;
+    }
+    #startButton {
+      background-color: #1d6edc;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #startMenu {
+      position: fixed;
+      bottom: 60px;
+      left: 10px;
+      width: 240px;
+      background-color: #165bb2;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #000;
+      padding: 10px;
+      display: none;
+      flex-direction: column;
+      z-index: 999;
+    }
+    #startMenu.visible {
+      display: flex;
+    }
+    .menu button {
+      margin: 8px 0;
+      padding: 10px;
+      background-color: #1f74e4;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .appWindow {
+      display: none;
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #0a2a59;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      width: 500px;
+      padding: 15px;
+      box-shadow: 0 0 20px #000;
+      z-index: 9999;
+    }
+    .windowControls button {
+      background-color: #1d6edc;
+      color: #fff;
+      border: none;
+      padding: 8px;
+      margin: 3px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #shellInput {
+      width: 100%;
+      padding: 8px;
+      background: #1459a1;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    #shellOutput {
+      max-height: 250px;
+      overflow-y: auto;
+      white-space: normal;
+      word-break: break-word;
+      padding: 10px;
+      border: 1px solid #fff;
+      background-color: #1b2d50;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="sagam.png" alt="Sagam Logo" class="logo">
+  <h2 style="text-align:center">🐾 Catness Pręga 25.2 — Sagam Edition SP1</h2>
+
+  <div id="taskbar">
+    <button id="startButton">Start</button>
+  </div>
+
+  <div id="startMenu" class="menu">
+    <button onclick="openShell()">🐾 SagamShell</button>
+    <button onclick="openBrowser()">🌐 Catness Browser</button>
+    <button onclick="openLibrary()">📚 Biblioteki Catness</button>
+    <button onclick="openBattleGame()">🎮 Dog and Cat Battle</button>
+    <button onclick="openChrupek()">🚨 Chrupek Alert</button>
+    <button onclick="openSettings()">⚙️ Ustawienia</button>
+    <button onclick="alert('Miauuu~ Witaj Adrian! 😸')">Miauknij</button>
+    <button onclick="window.close()">Zamknij</button>
+  </div>
+  <div id="shellWindow" class="appWindow">
+    <div class="windowControls">
+      <button onclick="closeWindow(this)">🟥</button>
+      <button onclick="minimizeWindow(this)">🟨</button>
+      <button onclick="fullscreenWindow(this)">🟩</button>
+    </div>
+    <div id="shellOutput">SagamShell aktywny. Wpisz komendę:</div>
+    <input id="shellInput" type="text" placeholder="Miłego Kodowania" onkeydown="runShell(event)">
+  </div>
+
+  <div id="browserWindow" class="appWindow">
+    <div class="windowControls">
+      <button onclick="closeWindow(this)">🟥</button>
+      <button onclick="minimizeWindow(this)">🟨</button>
+      <button onclick="fullscreenWindow(this)">🟩</button>
+    </div>
+    <h3>🌐 Catness Browser</h3>
+    <button onclick="window.open('https://youtube.com')">YouTube</button>
+    <button onclick="window.open('https://github.com')">GitHub</button>
+    <button onclick="window.open('https://office.com')">Office365</button>
+  </div>
+
+  <div id="libraryWindow" class="appWindow">
+    <div class="windowControls">
+      <button onclick="closeWindow(this)">🟥</button>
+      <button onclick="minimizeWindow(this)">🟨</button>
+      <button onclick="fullscreenWindow(this)">🟩</button>
+    </div>
+    <h3>📚 Biblioteki Catness</h3>
+    <ul>
+      <li onclick="alert('Otwieram KocieSprawy.txt')">📁 KocieSprawy.txt</li>
+      <li onclick="alert('Otwieram SagamShell.log')">📝 SagamShell.log</li>
+      <li onclick="alert('Pokazuję PixelKot.png')">🖼️ PixelKot.png</li>
+    </ul>
+  </div>
+
+  <div id="chrupekWindow" class="appWindow">
+    <div class="windowControls">
+      <button onclick="closeWindow(this)">🟥</button>
+      <button onclick="minimizeWindow(this)">🟨</button>
+      <button onclick="fullscreenWindow(this)">🟩</button>
+    </div>
+    <h3>🚨 CHRUPEK ALERT</h3>
+    <p><strong>Cząsteczka chrupek wykryta w obrębie gałki ocznej.</strong></p>
+    <h4>✅ CO ROBIĆ:</h4>
+    <ul>
+      <li>👁️ Przemyj oko wodą lub solą fizjologiczną.</li>
+      <li>🧼 Użyj jałowego gazika, NIE pocieraj ręką!</li>
+      <li>🧊 Zimny okład na powiekę.</li>
+      <li>🏥 Skontaktuj się z okulistą, jeśli ból nie ustępuje.</li>
+    </ul>
+    <h4>❌ CZEGO NIE ROBIĆ:</h4>
+    <ul>
+      <li>❌ Nie pocieraj oka.</li>
+      <li>❌ Nie próbuj wydłubać chrupka palcem.</li>
+      <li>❌ Nie ignoruj objawów.</li>
+      <li>❌ Nie pozwól rodzeństwu zbliżać się z kolejnym chrupkiem.</li>
+    </ul>
+    <p><em>🧠 PAMIĘTAJ: Chrupek to nie tylko przekąska. To broń masowego podrażnienia.</em></p>
+  </div>
+  <script>
+    // ✅ Menu Start
+    window.onload = () => {
+      const startButton = document.getElementById("startButton");
+      const startMenu = document.getElementById("startMenu");
+
+      startButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        startMenu.classList.toggle("visible");
+      });
+
+      document.addEventListener("click", function (e) {
+        const isInsideMenu = startMenu.contains(e.target);
+        const isStartButton = e.target === startButton;
+        const isAppWindow = e.target.closest(".appWindow");
+
+        if (!isInsideMenu && !isStartButton && !isAppWindow) {
+          startMenu.classList.remove("visible");
+        }
+      });
+    };
+
+    // 📦 Okna aplikacji
+    function openShell() {
+      document.getElementById("shellWindow").style.display = "block";
+    }
+    function openBrowser() {
+      document.getElementById("browserWindow").style.display = "block";
+    }
+    function openLibrary() {
+      document.getElementById("libraryWindow").style.display = "block";
+    }
+    function openChrupek() {
+      document.getElementById("chrupekWindow").style.display = "block";
+    }
+
+    // ⚙️ Ustawienia
+    function openSettings() {
+      const win = document.createElement("div");
+      win.className = "appWindow";
+      win.style.display = "block";
+      win.innerHTML = `
+        <div class="windowControls">
+          <button onclick="closeWindow(this)">🟥</button>
+          <button onclick="minimizeWindow(this)">🟨</button>
+          <button onclick="fullscreenWindow(this)">🟩</button>
+        </div>
+        <h3>⚙️ Ustawienia Catness</h3>
+        <h4>🔐 Aktywacja systemu</h4>
+        <button onclick="openActivation()">Aktywuj Catness Pręga</button>
+        <hr style="margin:15px 0; border-color:#fff;">
+        <h4>🎨 Motyw systemu</h4>
+        <select onchange="changeTheme(this.value)" style="padding:5px;">
+          <option value="default">Niebieski (domyślny)</option>
+          <option value="dark">Ciemny Pixel</option>
+          <option value="sagam">Tryb Sagama</option>
+          <option value="retro95">Retro 95</option>
+         <option value="neon">Neon Pixel</option>
+<option value="halloween">Halloween</option>
+        </select>
+        <h4>👤 Użytkownicy</h4>
+        <ul>
+          <li onclick="alert('Zalogowano jako: Sagam')">😼 Sagam</li>
+          <li onclick="alert('Zalogowano jako: Gość')">👤 Gość</li>
+          <li onclick="alert('Zalogowano jako: Chrupek')">🐾 Chrupek</li>
+        </ul>
+        <h4>🌐 Język systemu</h4>
+        <p>Domyślnie: miauknięty polski. Inne języki w wersji SP2.</p>
+      `;
+      document.body.appendChild(win);
+    }
+
+    // 🔐 Aktywacja
+    function openActivation() {
+      const win = document.createElement("div");
+      win.className = "appWindow";
+      win.style.display = "block";
+      win.innerHTML = `
+        <div class="windowControls">
+          <button onclick="closeWindow(this)">🟥</button>
+          <button onclick="minimizeWindow(this)">🟨</button>
+          <button onclick="fullscreenWindow(this)">🟩</button>
+        </div>
+        <h3>🔐 Aktywacja Catness Pręga</h3>
+        <p>Wprowadź kod aktywacyjny Sagama:</p>
+        <input type="text" id="activationCode" placeholder="Przykładowo: MIAU-2025-SAGAM" style="width:80%; padding:8px;">
+        <button onclick="activateSystem()">Aktywuj</button>
+        <div id="activationStatus" style="margin-top:10px;"></div>
+      `;
+      document.body.appendChild(win);
+    }
+
+    function activateSystem() {
+      const code = document.getElementById("activationCode").value.trim();
+      const status = document.getElementById("activationStatus");
+      if (code === "MIAU-2025-SAGAM") {
+        status.innerHTML = "✅ System aktywowany! Miauknięcie potwierdzenia.";
+      } else {
+        status.innerHTML = "❌ Nieprawidłowy kod aktywacyjny.";
+      }
+    }
+
+    // 🎨 Motywy
+   
+function changeTheme(theme) {
+  const windows = document.querySelectorAll(".appWindow");
+  const taskbar = document.getElementById("taskbar");
+  const startButton = document.getElementById("startButton");
+
+  if (theme === "neon") {
+    document.body.style.backgroundColor = "#000";
+    windows.forEach(win => {
+      win.style.backgroundColor = "#0f0f0f";
+      win.style.border = "2px solid #00ffff";
+      win.style.color = "#00ffff";
+    });
+    taskbar.style.backgroundColor = "#111";
+    startButton.style.backgroundColor = "#00ffff";
+    startButton.style.color = "#000";
+    startButton.style.border = "2px solid #00ffff";
+
+  } else if (theme === "halloween") {
+    document.body.style.backgroundColor = "#1a0f0f";
+    windows.forEach(win => {
+      win.style.backgroundColor = "#2b1b1b";
+      win.style.border = "2px solid #ff7518";
+      win.style.color = "#ff7518";
+    });
+    taskbar.style.backgroundColor = "#2b1b1b";
+    startButton.style.backgroundColor = "#ff7518";
+    startButton.style.color = "#1a0f0f";
+    startButton.style.border = "2px solid #ff7518";
+
+  } else if (theme === "dark") {
+    document.body.style.backgroundColor = "#111";
+    windows.forEach(win => {
+      win.style.backgroundColor = "#222";
+      win.style.border = "2px solid #444";
+      win.style.color = "#fff";
+    });
+    taskbar.style.backgroundColor = "#333";
+    startButton.style.backgroundColor = "#555";
+    startButton.style.color = "#fff";
+
+  } else if (theme === "sagam") {
+    document.body.style.backgroundImage = "linear-gradient(to bottom, #4b2e1e, #000)";
+    windows.forEach(win => {
+      win.style.backgroundColor = "#2e1e14";
+      win.style.border = "2px solid #fff";
+      win.style.color = "#fff";
+    });
+    taskbar.style.backgroundColor = "#3a2418";
+    startButton.style.backgroundColor = "#5c3a26";
+    startButton.style.color = "#fff";
+
+  } else if (theme === "retro95") {
+    document.body.style.backgroundColor = "#008080";
+    windows.forEach(win => {
+      win.style.backgroundColor = "#C0C0C0";
+      win.style.border = "2px solid #808080";
+      win.style.color = "#000";
+    });
+    taskbar.style.backgroundColor = "#C0C0C0";
+    startButton.style.backgroundColor = "#808080";
+    startButton.style.color = "#000";
+    startButton.style.border = "2px outset #fff";
+    startButton.style.fontFamily = "Tahoma, sans-serif";
+    startButton.style.fontSize = "14px";
+
+  } else {
+    document.body.style.backgroundColor = "#0e3d77";
+    windows.forEach(win => {
+      win.style.backgroundColor = "#0a2a59";
+      win.style.border = "2px solid #fff";
+      win.style.color = "#fff";
+    });
+    taskbar.style.backgroundColor = "#1459a1";
+    startButton.style.backgroundColor = "#1d6edc";
+    startButton.style.color = "#fff";
+    startButton.style.border = "none";
+    startButton.style.fontFamily = "'Courier New', monospace";
+    startButton.style.fontSize = "16px";
+  }
+}
+
+    // 🪟 Kontrolki okien
+    function closeWindow(btn) {
+      const win = btn.closest(".appWindow");
+      if (win) win.style.display = "none";
+    }
+    function minimizeWindow(btn) {
+      const win = btn.closest(".appWindow");
+      if (win) win.style.display = "none";
+    }
+    function fullscreenWindow(btn) {
+      const win = btn.closest(".appWindow");
+      if (win) {
+        win.style.top = "0";
+        win.style.left = "0";
+        win.style.transform = "none";
+        win.style.width = "100vw";
+        win.style.height = "100vh";
+        win.style.borderRadius = "0";
+        win.style.padding = "30px";
+        win.style.overflow = "auto";
+      }
+    }
+
+    // 🎮 Bitwa Sagama z pieskiem
+    let catHp = 100;
+    let dogHp = 100;
+
+    function openBattleGame() {
+      const battleWindow = document.createElement("div");
+      battleWindow.className = "appWindow";
+      battleWindow.style.display = "block";
+      battleWindow.innerHTML = `
+        <div class="windowControls">
+          <button onclick="closeWindow(this)">🟥</button>
+          <button onclick="minimizeWindow(this)">🟨</button>
+          <button onclick="fullscreenWindow(this)">🟩</button>
+        </div>
+        <h3>🐾 Dog and Cat Battle</h3>
+        <p>😼 Sagam HP: <span id="catHpDisplay">${catHp}</span></p>
+        <p>🐶 Piesek HP: <span id="dogHpDisplay">${dogHp}</span></p>
+        <button onclick="attackDog()">💥 Zaatakuj</button>
+               <button onclick="mruczHeal()">🎵 Mrucz obronnie</button>
+        <button onclick="dogAttack()">⚔️ Piesek atakuje</button>
+      `;
+      document.body.appendChild(battleWindow);
+    }
+
+    function attackDog() {
+      const damage = Math.floor(Math.random() * 15) + 5;
+      dogHp -= damage;
+      if (dogHp < 0) dogHp = 0;
+      document.getElementById("dogHpDisplay").textContent = dogHp;
+      alert(`😼 Sagam zaatakował! 🐶 -${damage} HP`);
+      checkVictory();
+    }
+
+    function mruczHeal() {
+      const heal = Math.floor(Math.random() * 10) + 5;
+      catHp += heal;
+      if (catHp > 100) catHp = 100;
+      document.getElementById("catHpDisplay").textContent = catHp;
+      alert(`🎵 Sagam mruczy... +${heal} HP`);
+    }
+
+    function dogAttack() {
+      const damage = Math.floor(Math.random() * 20) + 5;
+      catHp -= damage;
+      if (catHp < 0) catHp = 0;
+      document.getElementById("catHpDisplay").textContent = catHp;
+      alert(`🐶 Piesek zaatakował! 😼 -${damage} HP`);
+      checkVictory();
+    }
+
+    function checkVictory() {
+      if (catHp === 0) {
+        alert("😿 Sagam przegrał bitwę... Piesek zwyciężył!");
+      } else if (dogHp === 0) {
+        alert("😼 Sagam wygrał! Miauknięcie zwycięstwa rozbrzmiewa!");
+      }
+    }
+
+    // 🧠 Terminal SagamShell
+    function runShell(e) {
+      if (e.key !== "Enter") return;
+      const input = document.getElementById("shellInput").value.trim().toLowerCase();
+      const out = document.getElementById("shellOutput");
+
+      out.innerHTML += `<br><span style="color:#0ff;">> ${input}</span>`;
+
+      if (out.innerHTML.split("<br>").length > 50) {
+        out.innerHTML = "📖 Historia terminala wyczyszczona.<br>";
+      }
+
+      if (input.includes("dog and cat battle")) {
+        out.innerHTML += "<br>🎮 Uruchamianie gry: Dog and Cat Battle...";
+        openBattleGame();
+      } else if (input === "kot.podrap()") {
+        out.innerHTML += "<br>🐾 Sagam: Miaaauk! Drapanie rozpoczęte...";
+      } else if (input === "kot.mrucz()") {
+        out.innerHTML += "<br>🎵 Sagam: Mruczę z pixelową duszą...";
+      } else if (input === "system info") {
+        out.innerHTML += "<br>🖥️ Catness Pręga 25.2 SP1 — Sagam Edition";
+      } else if (input === "catness.browser()") {
+        out.innerHTML += "<br>🌐 Otwieram Catness Browser...";
+        openBrowser();
+      } else if (input === "catness.library()") {
+        out.innerHTML += "<br>📚 Otwieram Biblioteki Catnessa...";
+        openLibrary();
+      } else if (input === "chrupek.alert()") {
+        out.innerHTML += "<br>🚨 Uruchamiam Chrupek Alert...";
+        openChrupek();
+      } else if (input === "activate.catness()") {
+        out.innerHTML += "<br>🔐 Otwieram okno aktywacji systemu...";
+        openActivation();
+      } else if (input === "catness.settings()") {
+        out.innerHTML += "<br>⚙️ Otwieram ustawienia systemu...";
+        openSettings();
+      } else {
+        out.innerHTML += `<br>⚠️ Nieznana komenda: <code>${input}</code>`;
+      }
+
+      document.getElementById("shellInput").value = "";
+    }
+  </script>
+</body>
+</html>
