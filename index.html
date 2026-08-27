@@ -5,143 +5,104 @@
     <title>Catness OS — oficjalna strona</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+/* ZMIENNE */
 :root {
-    --accent: #4da3ff;
-    --accent2: #ff7ac4;
     --text: #f5f7ff;
     --muted: #c9d0f5;
-    --glass-bg: rgba(255, 255, 255, 0.12);
+    --accent: #ffd84d;
+    --accent2: #a3ff00;
+    --glass-bg: rgba(10, 12, 20, 0.65);
     --glass-border: rgba(255, 255, 255, 0.25);
 }
 
-/* Reset */
+/* RESET */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* TŁO CATNESS YELLOW */
+/* TŁO — TWOJA TAPETA CATNESSA */
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-
-    /* CIEMNIEJSZY, STONOWANY ŻÓŁTY */
-    background: linear-gradient(
-    180deg,
-    #c7a200 0%,
-    #8f6f00 100%
-);
-
-    background-attachment: fixed;
-
+    background: url("catness27background.png") center center fixed;
+    background-size: cover;
     color: var(--text);
     min-height: 100vh;
 }
 
-
-/* TRYB MOBILNY — automatyczne wykrywanie */
-body.mobile .page {
-    padding: 24px 12px;
+/* PÓŁPRZEZROCZYSTY CIEMNY OVERLAY JAK LEOPARD */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at top, rgba(0,0,0,0.35), rgba(0,0,0,0.75));
+    pointer-events: none;
+    z-index: -1;
 }
 
-body.mobile header {
-    flex-direction: column;
-    gap: 12px;
-    text-align: center;
-}
-
-body.mobile nav {
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-body.mobile .hero {
-    grid-template-columns: 1fr !important;
-}
-
-body.mobile .hero-title {
-    font-size: 26px;
-}
-
-body.mobile .card {
-    padding: 10px;
-}
-
-body.mobile footer {
-    flex-direction: column;
-    text-align: center;
-    gap: 12px;
-}
-
-/* GŁÓWNY PANEL STRONY — SZKŁO */
+/* GŁÓWNY KONTENER */
 .page {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 32px 16px 48px;
-    background: rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(30px);
-    border-radius: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    box-shadow: 0 0 40px rgba(0,0,0,0.35);
+    max-width: 980px;
+    margin: 40px auto 60px;
+    padding: 24px 28px 32px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(26px);
+    border-radius: 18px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.65);
 }
 
-/* HEADER — SZKŁO */
+/* GÓRNY PASEK — INSPIRACJA APPLE 2008 */
 header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 32px;
-    background: rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(22px);
-    border-radius: 18px;
-    padding: 12px 18px;
-    border: 1px solid rgba(255, 255, 255, 0.22);
+    justify-content: space-between;
+    margin-bottom: 26px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.35), rgba(0,0,0,0.45));
+    border: 1px solid rgba(255,255,255,0.35);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset;
 }
 
-/* LOGO */
+/* LOGO CATNESSA (PLIK catness.png W TYM SAMYM FOLDERZE) */
 .logo {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.logo-mark {
+.logo img {
     width: 32px;
     height: 32px;
-    border-radius: 10px;
-    background: conic-gradient(from 180deg, #4da3ff, #ff7ac4, #ffd66b, #4da3ff);
-    padding: 2px;
+    border-radius: 6px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.6);
 }
-.logo-inner {
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    background: rgba(0,0,0,0.45);
-    backdrop-filter: blur(12px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 18px;
-    color: var(--accent);
+.logo-text-main {
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+.logo-text-sub {
+    font-size: 11px;
+    color: var(--muted);
 }
 
-/* NAV */
+/* NAV — PROSTE LINKI JAK DAWNE APPLE.COM */
 nav {
     display: flex;
     gap: 12px;
-    font-size: 14px;
+    font-size: 13px;
 }
 nav a {
-    color: var(--muted);
+    color: var(--text);
     text-decoration: none;
-    padding: 6px 10px;
+    padding: 4px 10px;
     border-radius: 999px;
     border: 1px solid transparent;
-    transition: 0.2s;
+    transition: 0.15s;
 }
 nav a:hover {
-    color: var(--text);
-    border-color: rgba(255,255,255,0.25);
-    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.45);
+    background: rgba(255,255,255,0.12);
 }
 
-/* HERO */
+/* HERO — DUŻY ŚRODKOWY BLOK */
 .hero {
     display: grid;
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
@@ -152,37 +113,37 @@ nav a:hover {
 @media (max-width: 768px) {
     .hero { grid-template-columns: 1fr; }
 }
-.hero-title {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-.hero-sub {
-    font-size: 15px;
-    color: var(--muted);
-    margin-bottom: 18px;
-}
 
-/* BADGE */
+/* HERO TEKST */
 .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     font-size: 12px;
-    padding: 4px 10px;
+    padding: 3px 10px;
     border-radius: 999px;
-    background: rgba(77,163,255,0.18);
-    color: var(--accent);
-    border: 1px solid rgba(77,163,255,0.45);
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.35);
+    margin-bottom: 10px;
+}
+.hero-title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.hero-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 18px;
 }
 
-/* BUTTONS — SZKŁO + NEON */
+/* PRZYCISKI */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 10px 18px;
+    padding: 9px 18px;
     border-radius: 999px;
     font-size: 14px;
     font-weight: 500;
@@ -193,32 +154,57 @@ nav a:hover {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #d4ff4d, #a3ff00); /* zielono-żółty */
-    color: #050814;
-    box-shadow: 0 0 22px rgba(200,255,0,0.55);
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.65) 0%,
+        rgba(255, 255, 255, 0.35) 45%,
+        rgba(255, 255, 255, 0.18) 100%
+    );
+    color: #000;
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 999px;
+
+    /* efekt Aqua */
+    box-shadow:
+        inset 0 1px 2px rgba(255,255,255,0.9),
+        inset 0 -2px 4px rgba(0,0,0,0.25),
+        0 4px 12px rgba(0,0,0,0.45);
+
+    padding: 10px 22px;
+    font-weight: 600;
+    backdrop-filter: blur(12px);
+    transition: 0.2s ease;
 }
+
 .btn-primary:hover {
-    filter: brightness(1.08);
-    box-shadow: 0 0 32px rgba(200,255,0,0.75);
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.75) 0%,
+        rgba(255, 255, 255, 0.45) 45%,
+        rgba(255, 255, 255, 0.25) 100%
+    );
+    box-shadow:
+        inset 0 1px 2px rgba(255,255,255,1),
+        inset 0 -2px 4px rgba(0,0,0,0.3),
+        0 6px 16px rgba(0,0,0,0.55);
+    transform: translateY(-1px);
 }
 
 
 .btn-secondary {
-    background: rgba(255,255,255,0.12);
-    border-color: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.35);
     color: var(--text);
-    backdrop-filter: blur(12px);
 }
 .btn-secondary:hover {
-    background: rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.16);
 }
 
 .btn-icon {
     width: 18px;
     height: 18px;
     border-radius: 999px;
-    background: rgba(0,0,0,0.45);
-    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.55);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -226,45 +212,128 @@ nav a:hover {
     color: var(--accent);
 }
 
-/* HERO CARD — SZKŁO */
+/* HERO KARTA PO PRAWEJ */
 .hero-card {
-    background: rgba(255,255,255,0.14);
-    backdrop-filter: blur(26px);
-    border-radius: 22px;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(22px);
+    border-radius: 18px;
     border: 1px solid rgba(255,255,255,0.25);
-    padding: 16px;
-    box-shadow: 0 0 40px rgba(0,0,0,0.45);
+    padding: 14px 16px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    font-size: 13px;
+}
+.hero-card-header {
+    margin-bottom: 10px;
+}
+.hero-card-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.hero-card-chip {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+}
+.hero-card-footer {
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--muted);
 }
 
-/* CARD */
+/* SEKCJE */
+.section {
+    margin-top: 26px;
+}
+.section h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+.section > p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 14px;
+}
+
+/* GRID KART */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+}
+
+/* KARTY */
 .card {
-    background: rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.55);
     backdrop-filter: blur(18px);
-    border-radius: 18px;
+    border-radius: 14px;
     border: 1px solid rgba(255,255,255,0.22);
-    padding: 12px 12px 10px;
-    box-shadow: 0 0 22px rgba(0,0,0,0.35);
+    padding: 12px 14px 10px;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.6);
+    font-size: 13px;
+}
+.card-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+.card-body {
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+.card-tag {
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0.85;
 }
 
 /* FOOTER */
 footer {
-    margin-top: 32px;
+    margin-top: 28px;
     font-size: 11px;
     color: var(--muted);
     border-top: 1px solid rgba(255,255,255,0.18);
-    padding-top: 12px;
+    padding-top: 10px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 8px;
 }
-
 a.link {
     color: var(--accent);
     text-decoration: none;
 }
 a.link:hover {
     text-decoration: underline;
+}
+
+/* TRYB MOBILNY */
+body.mobile .page {
+    margin: 20px auto 32px;
+    padding: 18px 14px 24px;
+}
+body.mobile header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+body.mobile nav {
+    justify-content: center;
+    flex-wrap: wrap;
+}
+body.mobile .hero {
+    grid-template-columns: 1fr;
+}
+body.mobile .hero-title {
+    font-size: 24px;
+}
+body.mobile .card {
+    padding: 10px;
+}
+body.mobile footer {
+    flex-direction: column;
+    text-align: center;
 }
 </style>
 </head>
@@ -273,18 +342,17 @@ a.link:hover {
 <div class="page">
     <header>
         <div class="logo">
-            <div class="logo-mark">
-                <div class="logo-inner">C</div>
-            </div>
+            <img src="catness.png" alt="Logo Catness OS">
             <div>
-                <div style="font-weight:600;">Catness OS</div>
-                <div style="font-size:11px;color:var(--muted);" id="deviceInfo">Wykrywanie urządzenia…</div>
+                <div class="logo-text-main">Catness OS</div>
+                <div class="logo-text-sub" id="deviceInfo">Wykrywanie urządzenia…</div>
             </div>
         </div>
         <nav>
             <a href="#about">O systemie</a>
             <a href="#apps">Aplikacje</a>
             <a href="#download">Pobierz</a>
+            <a href="#coop">Współpraca</a>
         </nav>
     </header>
 
@@ -294,10 +362,10 @@ a.link:hover {
                 <span>🎉 1 rok Catnessa</span>
                 <span style="opacity:0.8;">10 lipca 2025 → 2 sierpnia 2026</span>
             </div>
-            <h1 class="hero-title">Lekki system webowy, który istnieje już rok i jeden miesiąc!</h1>
+            <h1 class="hero-title">Lekki system webowy z własnym światem aplikacji.</h1>
             <p class="hero-sub">
-                Catness OS to własny, przeglądarkowy system operacyjny z aplikacjami, motywami i rzeczami które będą wkrótce czyli: 
-                Sagam News i backend z zatwierdzaniem kont. Stworzony od zera przeze mnie - Adriana z Tychów.
+                Catness OS to przeglądarkowy system operacyjny z oknami, motywami, tapetami i własnym ekosystemem.
+                Tworzony od zera przeze mnie — Adriana z Tychów.
             </p>
             <div class="hero-actions" id="download">
                 <a class="btn btn-primary" href="https://github.com/CetkowanyPL/Catness/raw/main/Catness%20Pr%C4%99ga%2027.0.1%20Tabby%20Mainecoon.zip">
@@ -306,11 +374,11 @@ a.link:hover {
                 </a>
                 <a class="btn btn-secondary" href="https://github.com/CetkowanyPL/Catness/raw/main/wallpapers%20Catness%2025.X.X.X.zip">
                     <span class="btn-icon">🖼</span>
-                    <span>Pobierz tapety systemu Catness 25</span>
+                    <span>Tapety Catness 25</span>
                 </a>
-<a class="btn btn-secondary" href="https://github.com/CetkowanyPL/Catness/raw/main/Catness%2026.X%20wallpapers.zip">
+                <a class="btn btn-secondary" href="https://github.com/CetkowanyPL/Catness/raw/main/Catness%2026.X%20wallpapers.zip">
                     <span class="btn-icon">🖼</span>
-                    <span>Pobierz tapety systemu Catness 26</span>
+                    <span>Tapety Catness 26</span>
                 </a>
             </div>
             <p style="font-size:11px;color:var(--muted);margin-top:8px;">
@@ -321,19 +389,18 @@ a.link:hover {
         <div class="hero-card">
             <div class="hero-card-header">
                 <div class="hero-card-title">Catness Pręga 27 Tabby Mainecoon</div>
-                <div class="hero-card-chip">Wersja która modernizuje wszystko!</div>
+                <div class="hero-card-chip">Wersja, która modernizuje wszystko</div>
             </div>
             <div class="hero-card-body">
-                • Catness 27 już jest!<br>
-                • ulepszony wygląd<br>
-                • Nowe tapety<br>
-                •  Wkrótce ulepszone Matma+<br>
-                • Przygotowane pod premierę 2 sierpnia 2026r.
+                • Catness 27 już jest<br>
+                • Ulepszony wygląd i okna<br>
+                • Nowe tapety systemowe<br>
+                • Wkrótce ulepszone Matma+<br>
+                • Przygotowane pod premierę 2 sierpnia 2026 r.
             </div>
             <div class="hero-card-footer">
                 <div style="display:flex;align-items:center;gap:6px;">
-                    <div class="hero-card-dot"></div>
-                    <span>Backend bedzie gotowy na 24/7 (Railway / Deta)</span>
+                    <span>Nowy Catness Mail i zakładka Credits już 10 września!</span>
                 </div>
                 <span>Made by Adrian • Tychy</span>
             </div>
@@ -343,22 +410,25 @@ a.link:hover {
     <section class="section" id="about">
         <h2>O Catness OS</h2>
         <p>
-            Catness zaczął się jako pliki rozszerzenia .bat a ewoluował w html i dziś mamy piękny pełnoprawny system w html.
+            Catness zaczął się jako proste pliki .bat, a z czasem ewoluował w pełnoprawny system w HTML,
+            z własnym pulpitem, oknami i aplikacjami.
         </p>
         <div class="grid">
             <div class="card">
                 <div class="card-title">Historia projektu</div>
                 <div class="card-body">
-                    Start: 10 lipca 2025. Kolejne wersje: od 25 (beta) pzez dodanie tapet (Catness 25.1.2.9) aż po zaawansowany system obliczania matematycznych działań oraz wielu innych świetnych funkcji.
+                    Start: 10 lipca 2025. Od wersji 25 (beta) przez dodanie tapet (Catness 25.1.2.9),
+                    aż po zaawansowany system obliczania działań matematycznych i wiele innych funkcji.
                 </div>
-                <div class="card-tag">Rok rozwoju 10 lipca 2025 - 10 lipca 2026r.</div>
+                <div class="card-tag">Rok rozwoju: 10.07.2025 – 10.07.2026</div>
             </div>
             <div class="card">
-                <div class="card-title">System Mrauo oraz personalizacja</div>
+                <div class="card-title">System Mrauo i personalizacja</div>
                 <div class="card-body">
-                    Dzięki Kotosoft Mrauo 26 otrzymujesz piękny, szklany wygląd. Od wersji Catness 26.5 można zmieniać kolor okien. Są tapety i w ogóle
+                    Dzięki Kotosoft Mrauo 26 otrzymujesz szklany wygląd okien. Od wersji Catness 26.5
+                    możesz zmieniać kolor okien, korzystać z tapet i dopasować system do siebie.
                 </div>
-                <div class="card-tag">Piękny wygląd</div>
+                <div class="card-tag">Piękny wygląd i personalizacja</div>
             </div>
             <div class="card">
                 <div class="card-title">Motywy i tapety</div>
@@ -380,14 +450,15 @@ a.link:hover {
             <div class="card">
                 <div class="card-title">Sagam News</div>
                 <div class="card-body">
-                    System News z panelem admina, zatwierdzaniem kont, postami i backendem
+                    System news z panelem admina, zatwierdzaniem kont, postami i backendem
                     przygotowanymi pod premierę wkrótce.
                 </div>
             </div>
             <div class="card">
                 <div class="card-title">Messenger</div>
                 <div class="card-body">
-                    Komunikator w stylu Catnessa, z własnym UI i integracją z systemem. który będzie wydany jako zestaw funkcji do Sagam News wkrótce.
+                    Komunikator w stylu Catnessa, z własnym UI i integracją z systemem. Będzie wydany
+                    jako zestaw funkcji do Sagam News.
                 </div>
             </div>
             <div class="card">
@@ -399,13 +470,21 @@ a.link:hover {
         </div>
     </section>
 
+    <section class="section" id="coop">
+        <h2>Współpraca</h2>
+        <p style="color:var(--muted);font-size:14px;">
+            Sekcja współpracy pojawi się wkrótce. Jeśli chcesz testować Catnessa, tworzyć motywy
+            lub aplikacje, możesz zacząć od kodu na GitHubie.
+        </p>
+    </section>
+
     <footer>
         <div>
             © 2025–2026 Catness OS • Adrian, Tychy<br>
             Kod źródłowy: <a class="link" href="https://github.com/CetkowanyPL/Catness">GitHub Catness</a>
         </div>
         <div>
-            Wersja strony: 1.0 • przygotowana pod GitHub Pages<br>
+            Wersja strony: 2.0 • przygotowana pod GitHub Pages / Catness Browser<br>
             Copyright by Kotosoft 2026
         </div>
     </footer>
