@@ -37,6 +37,29 @@ body::before {
     z-index: -1;
 }
 
+/* KOMUNIKAT O ZAWIESZENIU PROJEKTU */
+.project-notice {
+    margin: 0 0 18px;
+    padding: 14px 18px;
+    color: #fff;
+    background: linear-gradient(to bottom, #f04444, #b90000);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 8px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .project-notice {
+        padding: 12px;
+        font-size: 13px;
+    }
+}
+
 /* GŁÓWNY KONTENER */
 .page {
     max-width: 980px;
@@ -356,6 +379,9 @@ body.mobile footer {
 
 <body>
 <div class="page">
+    <div class="project-notice" role="status">
+        Projekt zostaje zawieszony dopóki nie naprawi mi się program który pomagał z kodem Catnessa
+    </div>
     <header>
         <div class="logo">
             <img src="catness.png" alt="Logo Catness OS">
